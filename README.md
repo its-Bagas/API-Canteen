@@ -22,7 +22,6 @@ Proyek ini adalah sistem manajemen transaksi untuk kantin, yang mencakup fitur s
   - MySQL
 
 - **Lainnya**:
-  - RESTful API
   - JWT (Json Web Token)
   - Multer
 
