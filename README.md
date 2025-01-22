@@ -54,7 +54,7 @@ npx prisma migrate dev
 ```bash
 npm run start || nodemon
 ```
-Proyek akan berjalan di **http://localhost:3000**.
+Proyek akan berjalan di **http://localhost:4000**.
 
 ## **Pengembanagan**
 
@@ -63,4 +63,4 @@ Proyek akan berjalan di **http://localhost:3000**.
  - Tambahkan route di **routes/**.
 
 ## **Kontribusi**
-    Kami menerima kontribusi dari siapa saja. Silakan buat pull request atau buka issue jika Anda menemukan bug atau memiliki ide untuk fitur baru.
+Kami menerima kontribusi dari siapa saja. Silakan buat pull request atau buka issue jika Anda menemukan bug atau memiliki ide untuk fitur baru.
