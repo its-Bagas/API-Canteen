@@ -6,20 +6,24 @@ const userService = new UserService();
 
 export const registerUser = async (req: Request, res: Response) => {
   try {
-    const { email, password, role } = req.body;
+    const userData = {
+      email: req.body.email,
+      password: req.body.password,
+      role: req.body.role,
+    };
 
-    const existingUser = await userService.findEmail(email);
+    const existingUser = await userService.findEmail(userData.email);
 
-    if (existingUser) {
-       res.status(409).json({ error: 'Email is already in use' }); 
-    }
+    if (!existingUser) {
+      const users = await userService.createUser(userData);
+      res.status(201).json(users);
+      return
+    } 
 
-    const userData = { email, password, role };
-
-    const users = await userService.createUser(userData)
-    res.status(201).json(users);
+    res.status(409).json({ message: "Email already exists" });
   } catch (error) {
-    res.status(500).json({ error: 'Failed to create user' });
+     res.status(500).json({ error });
+     return;
   }
 };
 

@@ -8,7 +8,18 @@ const menuService = new MenuService()
 
 export const getAllMenus = async (req: Request, res: Response) => {
   try {
-    const menu = await menuService.getMenu();
+
+    const userId = res.locals.jwt.id
+
+    const findStand = await prisma.stan.findFirst({
+      where: {userId : userId }
+     })
+
+     if (!findStand) {
+      res.status(404).json({ error: 'Stand not found' });
+      return
+   }
+    const menu = await menuService.getMenuByStand(findStand.id);
     res.status(201).json(menu);
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch menu' });
@@ -63,9 +74,12 @@ export const createMenu = async (req: Request, res: Response) => {
 
     if (!req.file) {
       res.status(400).json({ error: 'No file uploaded' });
+      return;
    }
 
    const userId = res.locals.jwt.id
+
+   console.log(userId)
 
    const findStand = await prisma.stan.findFirst({
     where: {userId : userId }

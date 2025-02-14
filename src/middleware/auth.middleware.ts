@@ -7,6 +7,7 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
 
   if (!token) {
      res.sendStatus(401); 
+     console.log("token not found")
      return;
   }
 
@@ -16,7 +17,7 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
   }
 
   if (token) {
-    jwt.verify(token, secret, (error, decoded) => {
+    jwt.verify(token, secret, (error: any, decoded: any) => {
         if (error) {
              res.status(404).json({
                 message: error,

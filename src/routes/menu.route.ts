@@ -8,11 +8,11 @@ import { Role } from '@prisma/client';
 
 const router = Router();
 
-router.post('/', authenticateToken, roleMiddleware(Role.admin, Role.superadmin) , uploadFile.uploadMenu.single('image'), verifyAddMenu ,createMenu);
+router.post('/', authenticateToken, roleMiddleware(Role.admin, Role.superadmin) , uploadFile.uploadMenu.single('foto'), verifyAddMenu ,createMenu);
 router.get('/', authenticateToken, getAllMenus);
 router.get('/:id',authenticateToken , getMenuById);
 router.post('/stan/', authenticateToken, getAllMenusByStand)
-router.put('/:id', authenticateToken, roleMiddleware(Role.admin, Role.superadmin)  ,uploadFile.uploadMenu.single('image') , verifyUpdateMenu ,updateMenu);
+router.put('/:id', authenticateToken, roleMiddleware(Role.admin, Role.superadmin)  ,uploadFile.uploadMenu.single('foto') , verifyUpdateMenu ,updateMenu);
 router.delete('/:id',authenticateToken,  roleMiddleware(Role.admin, Role.superadmin) ,removeMenu);
 
 router.get('/menuDiskon', authenticateToken, getAllMenuDiskon );

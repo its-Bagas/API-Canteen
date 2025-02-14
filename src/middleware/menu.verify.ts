@@ -8,7 +8,6 @@ export const addDataSchema = Joi.object({
     harga: Joi.number().required(),
     jenis: Joi.string().required(),
     deskripsi:Joi.string().required(),
-    stok:Joi.number().required(),
     foto: Joi.allow().optional(),
   });
 
@@ -17,7 +16,6 @@ export const updateDataSchema = Joi.object({
     harga: Joi.number().optional(),
     jenis: Joi.string().valid(...validJenis).optional(),
     deskripsi:Joi.string().optional(),
-    stok:Joi.number().optional(),
     foto: Joi.allow().optional(),
   });
 

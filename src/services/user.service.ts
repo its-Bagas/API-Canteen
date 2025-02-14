@@ -4,16 +4,25 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 export class UserService {
-  async createUser (data: { email: string; password: string; role: 'admin' | 'customer' }) {
-    const hashedPassword = await bcrypt.hash(data.password, 10);
-    return await prisma.users.create({
-      data: {
-        email: data.email,
-        password: hashedPassword,
-        role: data.role,
-      },
-    });
+  async createUser(data: { email: string; password: string; role: 'admin' | 'customer' }) {
+    try {
+      const hashedPassword = await bcrypt.hash(data.password, 10);
+      
+   const user = await prisma.users.create({
+        data: {
+          email: data.email,
+          password: hashedPassword,
+          role: data.role,
+        },
+      });
+      return user;
+    } catch (error) {
+      // Tangani error jika ada
+      console.error("Error creating user:", error);
+      throw new Error("Failed to create user");
+    }
   }
+  
 
   async getUserById (id: string) {
     return await prisma.users.findUnique({
@@ -52,6 +61,7 @@ export class UserService {
       throw new Error('JWT_SECRET is not defined in the environment variables'); 
     }
     const token = jwt.sign({ id: userId, role:roleUser }, secret, { expiresIn: '1h' });
+
     return token;
   }
 
